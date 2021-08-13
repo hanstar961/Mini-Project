@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        h1  {
+            position: absolute;
+            left: 620px;
+            top: 380px;
+            font-size: 30px;
+            font-family: Helvetica;
+        }
+
+        h2 {
+            position: absolute;
+            left: 620px;
+            top: 440px;
+            font-size: 18px;
+            font-family: Helvetica;
+            font:lighter;
+        }
+
+        #piano {
+            position: absolute;
+            left: 740px;
+            top: 500px;
+            font-size: 18px;
+            font-family: Helvetica;
+
+
+            color: #FFFFFF;
+            background: #cc0000;
+            border-radius: 5px;
+        }
+
+        #drums {
+            position: absolute;
+            left: 820px;
+            top: 500px;
+            font-size: 18px;
+            font-family: Helvetica;
+
+            color: #FFFFFF;
+            background: #cc0000;
+            border-radius: 5px;
+        }
+
+        pre {
+            position:absolute;
+            left: 730px;
+            top: 530px;
+            font-size: 15px;
+            font-family: Helvetica;
+            font-style:  italic;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+
+    <title>Jingle Balls!</title>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+<h1>Welcome to Jingle Balls!</h1>
+<h2>Click on the buttons to change the music mode</h2>
+
+<img src="https://i.pinimg.com/originals/94/4d/c2/944dc2317dddb5a9b376be5ba92fe450.jpg" width="620" height="851">
+
+<button id="piano" onclick="playPiano(this)">Piano</button>
+<button id="drums" onclick="playDrum(this)" >Drums</button>
+
+<pre id="displayMessage"></pre>
+
+</body>
+</html>
+<script>
+    let socket = io();
+
+    socket.on('connect', function IdentifyUser() {
+        socket.emit('client_type', 'chloe')
+    });
+
+    var x = document.getElementById("piano");
+    x.disable = true;
+
+    function playPiano(id) {
+        document.getElementById('displayMessage').innerText = 'Piano is ON. Enjoy!';
+        socket.emit('piano_button', 'piano');
+    }
+
+    function playDrum(id) {
+        document.getElementById('displayMessage').innerText = 'Drums is ON. Enjoy!';
+        socket.emit('drum_button', 'drum');
+    }
+
+</script>
